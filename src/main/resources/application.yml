@@ -1,0 +1,22 @@
+micronaut:
+  application:
+    name: clientCredentials
+  security:
+    oauth2:
+      clients:
+        default:
+          client-id: ${OAUTH_CLIENT_ID}
+          client-secret: ${OAUTH_CLIENT_SECRET}
+        scopes:
+          - platform-api
+        grant-type: client_credentials
+        client-credentials:
+          uri-regex: 'https://${TARGET_API_URI}/**'
+          advanced-expiration: 600s
+        token:
+          url: "https://${IDENTITY_PROVIDER_URL}"
+          auth-method: client_secret_post
+
+downstream:
+  platform:
+    url: https://${TARGET_API_URI}
